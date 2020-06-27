@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+.eggs/
+.coverage
+htmlcov/
+venv/
+dist/
+build/
+coverage.xml
+pylint.txt
