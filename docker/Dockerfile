@@ -3,16 +3,12 @@ FROM python:slim-buster AS compile-image
 
 ## install dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential
+    apt-get install -y --no-install-recommends gcc
 
 ## virtualenv
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-# Set git version number from arg.
-ARG VERSION
-ENV GIT_VERSION="$VERSION"
 
 ## add and install requirements
 RUN pip install --upgrade pip
