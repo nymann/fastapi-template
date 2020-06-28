@@ -1,5 +1,5 @@
 from gino.ext import starlette
-from chessdb_api import config
+from fastapi_template import config
 
 DB = starlette.Gino(
     dsn=config.DB_DSN,

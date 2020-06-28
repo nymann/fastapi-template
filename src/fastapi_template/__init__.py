@@ -7,9 +7,9 @@ from fastapi import FastAPI
 import sentry_sdk
 from sentry_sdk.integrations import sqlalchemy
 
-from chessdb_api.routes.users import router as user_router
-from chessdb_api.models import DB
-from chessdb_api import version
+from fastapi_template.routes.users import router as user_router
+from fastapi_template.models import DB
+from fastapi_template import version
 
 
 def create_app() -> FastAPI:

@@ -1,4 +1,4 @@
-from chessdb_api.models import DB
+from fastapi_template.models import DB
 from sqlalchemy.dialects import postgresql as psql
 from sqlalchemy import func
 

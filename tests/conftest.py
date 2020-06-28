@@ -4,7 +4,7 @@
 """
 import pytest
 from starlette import testclient
-import chessdb_api
+import fastapi_template
 import subprocess
 import pathlib
 
@@ -13,7 +13,7 @@ import pathlib
 def app():
     """app.
     """
-    return chessdb_api.create_app()
+    return fastapi_template.create_app()
 
 
 @pytest.fixture
