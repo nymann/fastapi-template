@@ -20,16 +20,13 @@ async def get_users():
 
 
 @router.post("/users", response_model=schemas.User)
-async def add_user(user: schemas.UserCreate):
+async def add_user(request: schemas.UserCreate):
     """add_user.
 
     Args:
-        user (schemas.UserCreate): user
+        request (schemas.UserCreate): user
     """
-    user = await User.create(email=user.email,
-                             name=user.name,
-                             password=user.password,
-                             admin=user.admin)
+    user = await User.create(**request.dict())
     return user
 
 

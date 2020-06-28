@@ -17,7 +17,7 @@ build:
 	@python setup.py build
 
 install: clean
-	@python setup.py install
+	@python setup.py develop
 
 test: install
 	@python setup.py test
