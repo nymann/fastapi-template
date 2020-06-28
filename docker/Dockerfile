@@ -19,4 +19,4 @@ WORKDIR /usr/src/app
 COPY . .
 RUN pip install .
 
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
