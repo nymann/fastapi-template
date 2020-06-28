@@ -15,21 +15,27 @@ def test_crud(client):
     name = _rand(8)
     email = name + "@nymann.dev"
     route = "/users"
-    route_id = f"{route}/{email}"
+
     # create
-    response = client.post(route, json=dict(name=name, email=email))
+    user = dict(name=name, email=email, password=_rand(26))
+    response = client.post(route, json=user)
     response.raise_for_status()
     data = response.json()
+    identifier = data["identifier"]
+    route_id = f"{route}/{identifier}"
 
     # retrieve
     response = client.get(route_id)
     response.raise_for_status()
     data = response.json()
     assert data["name"] == name
-    assert data["email"] == email
+    assert data["email"] == email.lower()
+
     # delete
     response = client.delete(route_id)
     response.raise_for_status()
+    data = response.json()
+    assert data["identifier"] == identifier
     assert client.get(route_id).status_code == 404
 
 
