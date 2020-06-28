@@ -7,7 +7,8 @@ upgrade: install
 docker-run:
 	@docker-compose build
 	@docker-compose up -d
-	@docker-compose exec fastapi_template alembic upgrade head
+
+docker-logs:
 	@docker-compose logs -f
 
 run: upgrade

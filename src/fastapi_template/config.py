@@ -2,7 +2,7 @@ from sqlalchemy.engine.url import URL
 from starlette.config import Config
 from starlette.datastructures import Secret
 
-config = Config()
+config = Config(".env")
 
 DB_HOST = config("POSTGRES_HOST", default=None)
 DB_PORT = config("POSTGRES_PORT", cast=int, default=None)

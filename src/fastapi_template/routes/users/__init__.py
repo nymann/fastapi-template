@@ -26,7 +26,10 @@ async def add_user(user: schemas.UserCreate):
     Args:
         user (schemas.UserCreate): user
     """
-    user = await User.create(**user)
+    user = await User.create(email=user.email,
+                             name=user.name,
+                             password=user.password,
+                             admin=user.admin)
     return user
 
 
