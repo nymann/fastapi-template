@@ -5,10 +5,11 @@
 
 from fastapi import FastAPI
 import sentry_sdk
-from sentry_sdk.integrations import sqlalchemy, asgi
+from sentry_sdk.integrations import sqlalchemy
 
 from wert_api.routes.users import router as user_router
 from wert_api.models import DB
+from wert_api import version
 
 
 def create_app() -> FastAPI:
@@ -19,7 +20,7 @@ def create_app() -> FastAPI:
     Returns:
         FastAPI:
     """
-    app: FastAPI = FastAPI()
+    app: FastAPI = FastAPI(title="Wert API", version=version.__version__)
     _initalize_extensions(app=app)
     return _register_routes(app=app)
 

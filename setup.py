@@ -2,7 +2,12 @@
 """Builds boilerplate as a package
 
 """
-
 import setuptools
+from distutils import util
 
-setuptools.setup()
+version = dict()
+path = util.convert_path("src/wert_api/version.py")
+with open(path) as file:
+    exec(file.read(), version)
+
+setuptools.setup(version=version["__version__"])

@@ -29,4 +29,4 @@ version:
 .PHONY: clean lint test build install run
 
 clean:
-	@rm -rf  __pycache__/ *.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@rm -rf  __pycache__/ src/wert_api.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt

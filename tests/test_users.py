@@ -13,24 +13,24 @@ def test_crud(client):
         client:
     """
     name = _rand(8)
-    email = name + "@gmail.com"
-
+    email = name + "@nymann.dev"
+    route = "/users"
+    route_id = f"{route}/{email}"
     # create
-    response = client.post("/users", json=dict(name=name, email=email))
+    response = client.post(route, json=dict(name=name, email=email))
     response.raise_for_status()
     data = response.json()
+
     # retrieve
-    email = data["email"]
-    url = f'/users/{email}'
-    response = client.get(url)
+    response = client.get(route_id)
     response.raise_for_status()
     data = response.json()
     assert data["name"] == name
     assert data["email"] == email
     # delete
-    response = client.delete(url)
+    response = client.delete(route_id)
     response.raise_for_status()
-    assert client.get(url).status_code == 404
+    assert client.get(route_id).status_code == 404
 
 
 def _rand(length: int) -> str:
