@@ -2,8 +2,8 @@ from typing import List
 import fastapi
 import pydantic
 
-from fastapi_template.models.users import User
-from fastapi_template import schemas
+from chessdb_api.models.users import User
+from chessdb_api import schemas
 
 router = fastapi.APIRouter()
 
