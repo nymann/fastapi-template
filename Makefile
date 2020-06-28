@@ -7,7 +7,7 @@ upgrade: install
 	@alembic upgrade head
 
 run: upgrade
-	@uvicorn wert_api.asgi:app --reload
+	@uvicorn fastapi_template.asgi:app --reload
 build:
 	@python setup.py build
 
@@ -29,4 +29,4 @@ version:
 .PHONY: clean lint test build install run
 
 clean:
-	@rm -rf  __pycache__/ src/wert_api.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@rm -rf  __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt

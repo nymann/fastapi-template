@@ -5,9 +5,9 @@ import time
 from logging.config import fileConfig
 
 from alembic import context
-from wert_api.config import DB_DSN, DB_RETRY_LIMIT, DB_RETRY_INTERVAL
-from wert_api import create_app
-from wert_api.models import DB
+from fastapi_template.config import DB_DSN, DB_RETRY_LIMIT, DB_RETRY_INTERVAL
+from fastapi_template import create_app
+from fastapi_template.models import DB
 from sqlalchemy import engine_from_config, pool
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))

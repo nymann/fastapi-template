@@ -2,8 +2,8 @@ from typing import List
 import fastapi
 import pydantic
 
-from wert_api.models.users import User
-from wert_api import schemas
+from fastapi_template.models.users import User
+from fastapi_template import schemas
 
 router = fastapi.APIRouter()
 
