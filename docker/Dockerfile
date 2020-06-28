@@ -1,18 +1,56 @@
-FROM tiangolo/uvicorn-gunicorn:python3.8-alpine3.10
+## base image
+FROM python:slim-buster AS compile-image
 
-RUN apk update && apk add gcc libffi-dev g++ postgresql-dev make curl
+## install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc
 
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+## virtualenv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-COPY pyproject.toml pyproject.toml
-COPY poetry.lock poetry.lock
+# Set git version number from arg.
+ARG VERSION
+ENV GIT_VERSION="$VERSION"
 
-RUN source $HOME/.poetry/env && poetry config virtualenvs.create false && poetry install --no-dev --no-ansi --no-root
+## add and install requirements
+RUN pip install --upgrade pip
+COPY setup.cfg .
+RUN python3 -c "import configparser; c = configparser.ConfigParser(); c.read('setup.cfg'); print(c['options']['install_requires'])" | xargs pip install
 
-RUN apk del libffi-dev g++ make curl
+WORKDIR /usr/src/app
+COPY . .
+RUN pip install .
 
-COPY ./app /app/app
-
-COPY ./alembic.ini /app/alembic.ini
-
-COPY ./app/settings/prestart.sh /app/prestart.sh
+#FROM python:slim-buster AS runtime-image
+#
+### install nc
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends netcat-openbsd
+#
+### copy Python dependencies from build image
+#COPY --from=compile-image /opt/venv /opt/venv
+#
+### set working directory
+#WORKDIR /usr/src/app
+#
+### add user
+#RUN addgroup --system user && adduser --system --no-create-home --group user
+#RUN chown -R user:user /usr/src/app && chmod -R 755 /usr/src/app
+#
+### add entrypoint.sh
+#COPY docker/entrypoint.sh /usr/src/app/entrypoint.sh
+#RUN chmod +x /usr/src/app/entrypoint.sh
+#
+### switch to non-root user
+#USER user
+#
+### add config
+#COPY . /usr/src/app/
+#
+### set environment variables
+#ENV PYTHONDONTWRITEBYTECODE 1
+#ENV PYTHONUNBUFFERED 1
+#ENV PATH="/opt/venv/bin:$PATH"
+CMD ["./entrypoint.sh"]
