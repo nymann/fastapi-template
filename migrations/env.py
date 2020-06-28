@@ -62,7 +62,7 @@ def run_migrations_online():
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
-
+    print(DB_DSN)
     retries = 0
     while True:
         try:
