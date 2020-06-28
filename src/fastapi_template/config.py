@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy.engine.url import URL
 from starlette.config import Config
 from starlette.datastructures import Secret
@@ -27,3 +28,6 @@ DB_USE_CONNECTION_FOR_REQUEST = config("DB_USE_CONNECTION_FOR_REQUEST",
                                        default=True)
 DB_RETRY_LIMIT = config("DB_RETRY_LIMIT", cast=int, default=32)
 DB_RETRY_INTERVAL = config("DB_RETRY_INTERVAL", cast=int, default=1)
+
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
+SECRET_KEY = config("SECRET_KEY", default=str(uuid.uuid4()))

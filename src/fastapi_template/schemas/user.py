@@ -4,46 +4,35 @@
 """
 from typing import Optional
 import uuid
-import pydantic
-import datetime as dt
+
+from pydantic import BaseModel, EmailStr
+
+from fastapi_template.schemas import base
 
 
-class UserBase(pydantic.BaseModel):
-    """UserBase.
+class User(base.Base):
+    """User.
     """
-    email: pydantic.EmailStr
-    name: Optional[str] = None
+    identifier: uuid.UUID
+    name: str
+    email: EmailStr
+    password: str
     admin: bool = False
 
 
-class UserCreate(UserBase):
-    """UserCreate.
-
-    Properties to receive via API on creation.
+class UserCreateIn(BaseModel):
+    """UserCreateIn.
     """
+
+    name: str
+    email: EmailStr
     password: str
 
 
-class UserUpdate(UserBase):
-    """UserUpdate.
-
-    Properties to receive via API on update.
+class UserUpdateIn(BaseModel):
+    """UserUpdateIn.
     """
 
-    pass
-
-
-class User(UserBase):
-    """User.
-
-    Additional properties to return in endpoints.
-    """
-    pass
-
-
-class UserInDB(User):
-    """UserInDB.
-
-    Additional properties stored in the database.
-    """
-    created_at: dt.datetime
+    name: Optional[str]
+    email: Optional[EmailStr]
+    password: Optional[str]

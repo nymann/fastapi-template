@@ -3,51 +3,58 @@
 
 """
 from typing import List
+import uuid
 import fastapi
-
-from fastapi_template.models.users import User
-from fastapi_template import schemas
+from fastapi_template.core import security
+from fastapi_template.models.users import User as ORMUser
+from fastapi_template.schemas import user as schemas
 
 router = fastapi.APIRouter()
 
 
-@router.get("/users", response_model=List[schemas.User])
+@router.get("/users", tags=["Users"], response_model=List[schemas.User])
 async def get_users():
     """get_users.
     """
-    users = await User.query.gino.all()
+    users: List[ORMUser] = await ORMUser.query.gino.all()
     return users
 
 
-@router.post("/users", response_model=schemas.User)
-async def add_user(request: schemas.UserCreate):
+@router.post("/users", tags=["Users"], response_model=schemas.User)
+async def add_user(request: schemas.UserCreateIn):
     """add_user.
 
     Args:
-        request (schemas.UserCreate): user
+        request (schemas.UserCreateIn): request
     """
-    user = await User.create(**request.dict())
-    return user
+    hashed_password = security.get_password_hash(request.password)
+    user: ORMUser = await ORMUser.create(email=request.email,
+                                         name=request.name,
+                                         password=hashed_password)
+    return schemas.User.from_orm(user)
 
 
-@router.get("/users/{email}", response_model=schemas.User)
-async def get_user(email: str):
+@router.get("/users/{identifier}", tags=["Users"], response_model=schemas.User)
+async def get_user(identifier: uuid.UUID):
     """get_user.
 
     Args:
-        email (str): email
+        identifier (str): identifier
     """
-    user = await User.get_or_404(email)
-    return user
+    user: ORMUser = await ORMUser.get_or_404(identifier)
+    return schemas.User.from_orm(user)
 
 
-@router.delete("/users/{email}")
-async def delete_user(email: str):
+@router.delete("/users/{identifier}",
+               tags=["Users"],
+               response_model=schemas.User)
+async def delete_user(identifier: uuid.UUID):
     """delete_user.
 
     Args:
-        email (str): email
+        identifier (str): identifier
     """
-    user = await User.get_or_404(email)
+    user: ORMUser = await ORMUser.get(identifier)
+    deleted_user: schemas.User = schemas.User.from_orm(user)
     await user.delete()
-    return dict(email=email)
+    return deleted_user
