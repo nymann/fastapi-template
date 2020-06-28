@@ -7,7 +7,6 @@ Create Date: 2020-06-27 05:31:25.873450
 
 """
 from alembic import op
-from sqlalchemy import orm
 from migrations import helper
 
 # revision identifiers, used by Alembic.
@@ -16,7 +15,6 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-Session = orm.sessionmaker()
 g_bind = op.get_bind()
 
 

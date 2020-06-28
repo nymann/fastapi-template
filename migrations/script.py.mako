@@ -17,7 +17,6 @@ down_revision = ${repr(down_revision)}
 branch_labels = ${repr(branch_labels)}
 depends_on = ${repr(depends_on)}
 
-Session = orm.sessionmaker()
 g_bind = op.get_bind()
 
 def upgrade():
