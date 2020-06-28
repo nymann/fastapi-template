@@ -2,9 +2,7 @@
 
 set -e
 
-. /venv/bin/activate
-
-while ! flask db upgrade
+while ! alembic upgrade head
 do
      echo "Retry..."
      sleep 1

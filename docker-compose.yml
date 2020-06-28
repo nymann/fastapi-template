@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  fastapi_template:
+    container_name: fastapi_template
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      network: host
+    command: uvicorn fastapi_template.asgi:app --port 8000 --host 0.0.0.0 
+    environment:
+      - POSTGRES_HOST=fastapi_template_db
+    depends_on:
+      - fastapi_template_db
+    ports:
+      - 9001:8000
+    env_file:
+      - .env
+    networks:
+      - web
+      - fastapi_template_internal
+  fastapi_template_db:
+    image: postgres:12-alpine
+    container_name: fastapi_template_db
+    env_file:
+      - .env
+    volumes:
+      - /tmp/fastapi_template/postgres/data:/var/lib/postgresql/data/
+    networks:
+      - fastapi_template_internal
+
+
+networks:
+  fastapi_template_internal:
+  web:
+    external:
+        name: web

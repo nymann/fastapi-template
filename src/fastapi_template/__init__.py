@@ -20,7 +20,8 @@ def create_app() -> FastAPI:
     Returns:
         FastAPI:
     """
-    app: FastAPI = FastAPI(title="Wert API", version=version.__version__)
+    app: FastAPI = FastAPI(title="fastapi_template",
+                           version=version.__version__)
     _initalize_extensions(app=app)
     return _register_routes(app=app)
 

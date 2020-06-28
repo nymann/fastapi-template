@@ -5,6 +5,7 @@ CREATE TABLE users (
     email VARCHAR(256) UNIQUE NOT NULL,
     name VARCHAR(256) NOT NULL,
     admin BOOLEAN DEFAULT False,
+    password VARCHAR(512) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (identifier)
 );
