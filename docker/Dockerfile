@@ -17,6 +17,6 @@ RUN python3 -c "import configparser; c = configparser.ConfigParser(); c.read('se
 
 WORKDIR /usr/src/app
 COPY . .
-RUN pip install .
+RUN pip install -e .
 
 ENTRYPOINT ["./docker/entrypoint.sh"]
