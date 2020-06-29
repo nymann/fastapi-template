@@ -14,7 +14,7 @@ have an open PR linked to it or a maintainer assigned to it. These show up in
 the sidebar. No need to ask if you can work on an issue that interests you.
 
 We are using
-(Googles styleguide)[https://github.com/google/styleguide/blob/gh-pages/pyguide.md]
+[Googles styleguide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md)
 in this project.
 
 ##### First time setup
