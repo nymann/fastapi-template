@@ -40,4 +40,12 @@ def test_crud(client):
 
 
 def _rand(length: int) -> str:
+    """_rand.
+
+    Args:
+        length (int): length
+
+    Returns:
+        str:
+    """
     return ''.join(random.choice(string.ascii_letters) for _ in range(length))
