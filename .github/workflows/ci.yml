@@ -1,0 +1,44 @@
+name: fastapi_template CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  name: Run linting
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint 
+        uses: actions/checkout@v2
+        run: make lint
+
+  unittest-coverage:
+    name: Run unittest and generate code coverage report.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unittest
+        uses: actions/checkout@v2
+        run: make test
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: coverage.xml
+
+  static-analysis:
+    name: Static analysis by utilizing Sonarcloud.io
+    needs: unittest-coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download coverage results.
+        uses: actions/download-artifact@v1
+        with:
+          name: coverage
+      - name: Sonar Scanner
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
