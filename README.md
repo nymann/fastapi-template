@@ -10,9 +10,20 @@
 
 
 ### Making it your own
+The following requires `yay -S parallel`
 ```sh
-grep -rl fast_api . | parallel sed -i "s/fast_api/your_snake_case_name/g" {}
-mv src/fastapi_template src/your_snake_case_name
+#!/usr/bin/env sh
+
+rename_to=${1:?"Specify what the project should be renamed to."}
+rename_from=${2:-fastapi_template}
+
+grep -rl ${rename_from} . | parallel sed -i "s#${rename_from}#${rename_to}#g" {}
+mv src/${rename_from} src/${rename_to}
+sudo rm -r .git
+git init
+echo "Empty git project initialized, run:"
+echo "git remote add origin git@github.com:/YOUR_GROUP/YOUR_PROJECT.git"
+echo "To setup your project."
 ```
 
 ### Contributing
