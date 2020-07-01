@@ -10,7 +10,7 @@
 
 
 ### Making it your own
-The following requires `yay -S parallel`
+The following requires [GNU Parallel](https://www.gnu.org/software/parallel/) (`yay -S parallel`).
 ```sh
 #!/usr/bin/env sh
 
