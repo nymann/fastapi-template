@@ -17,10 +17,8 @@ down_revision = ${repr(down_revision)}
 branch_labels = ${repr(branch_labels)}
 depends_on = ${repr(depends_on)}
 
-g_bind = op.get_bind()
-
 def upgrade():
-    helper.execute(bind=g_bind, filename="${message}/upgrade.sql")
+    helper.execute(bind=op.get_bind(), filename="${message}/upgrade.sql")
 
 def downgrade():
-    helper.execute(bind=g_bind, filename="${message}/downgrade.sql")
+    helper.execute(bind=op.get_bind(), filename="${message}/downgrade.sql")
