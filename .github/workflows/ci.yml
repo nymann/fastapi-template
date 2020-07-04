@@ -20,6 +20,11 @@ jobs:
             python-verion: 3.8
       - name: Lint
         run: make lint
+      - name: Upload pylint.txt
+        uses: actions/upload-artifact@v1
+        with:
+          name: pylint
+          path: pylint.xml
 
   unittest-coverage:
     name: Run unittest and generate code coverage report.
@@ -29,6 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Unittest
+        uses: actions/setup-python@v2
+        with:
+            python-version: 3.8
+      - name: execute tests
         run: make test
       - name: Upload coverage results
         uses: actions/upload-artifact@v1
