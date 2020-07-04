@@ -2,7 +2,8 @@ name: fastapi_template CI
 
 on:
   push:
-    branches: [ master ]
+    branches-ignore:
+      - 'master'
   pull_request:
     branches: [ master ]
 
