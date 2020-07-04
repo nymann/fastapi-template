@@ -12,7 +12,7 @@ docker-logs:
 	@docker-compose logs -f
 
 run: upgrade
-	@uvicorn gitlab_deploy.asgi:app --reload
+	@uvicorn fastapi_template.asgi:app --reload
 build:
 	@python setup.py build
 
@@ -44,7 +44,7 @@ watch-cov: test
 .PHONY: clean lint test build install run docker-run migrate clean_db yapf pylint
 
 clean:
-	@rm -rf  __pycache__/ src/gitlab_deploy.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@rm -rf  __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
 
 hooks:
 	@pip install pre-commit
