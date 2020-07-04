@@ -19,12 +19,13 @@ jobs:
         with:
             python-verion: 3.8
       - name: Lint
-        run: make lint
+        run: |
+            make lint
       - name: Upload pylint.txt
         uses: actions/upload-artifact@v1
         with:
           name: pylint
-          path: pylint.xml
+          path: pylint.txt
 
   unittest-coverage:
     name: Run unittest and generate code coverage report.
@@ -44,11 +45,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Unittest
+      - name: Setup python 3.8 for unitttests.
         uses: actions/setup-python@v2
         with:
             python-version: 3.8
-      - name: execute tests
+      - name: Run unittests
         run: make test
         env:
             POSTGRES_USER: postgres
