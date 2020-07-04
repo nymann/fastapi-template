@@ -8,19 +8,27 @@ on:
 
 jobs:
   lint:
-    name: Run linting
+    name: Run yapf in diff mode and pylint.
+
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
       - name: Lint 
-        uses: actions/checkout@v2
+        uses: actions/setup-python@v2
+        with:
+            python-verion: 3.8
+      - name: Lint
         run: make lint
 
   unittest-coverage:
     name: Run unittest and generate code coverage report.
+
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
       - name: Unittest
-        uses: actions/checkout@v2
         run: make test
       - name: Upload coverage results
         uses: actions/upload-artifact@v1
@@ -31,7 +39,9 @@ jobs:
   static-analysis:
     name: Static analysis by utilizing Sonarcloud.io
     needs: unittest-coverage
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Download coverage results.
         uses: actions/download-artifact@v1
