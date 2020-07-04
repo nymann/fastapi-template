@@ -34,18 +34,23 @@ pylint:
 	@pylint --rcfile=setup.cfg -r n src > pylint.txt
 	@cat pylint.txt
 
+isort:
+	@pip install isort
+	@isort -c **/*.py
+
 yapf:
 	@pip install yapf
 	@yapf -dpr src tests migrations
 
-watch-cov: test
-	@ls | entr firefox htmlcov/index.html
-
-.PHONY: clean lint test build install run docker-run migrate clean_db yapf pylint
-
 clean:
-	@rm -rf  __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@rm -rf __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
 
 hooks:
 	@pip install pre-commit
 	@pre-commit install
+
+fix:
+	@yapf -ipr src tests migrations
+	@isort --atomic --recursive src migrations tests
+
+.PHONY: clean lint test build install run docker-run migrate clean_db yapf pylint fix

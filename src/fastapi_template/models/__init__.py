@@ -1,4 +1,9 @@
-from gino.ext import starlette
+# -*- coding: utf-8 -*-
+"""Example Google style docstrings.
+
+"""
+from gino.ext import starlette  # pylint: disable=no-name-in-module
+
 from fastapi_template import config
 
 DB = starlette.Gino(

@@ -2,11 +2,13 @@
 """Example Google style docstrings.
 
 """
+import pathlib
+import subprocess
+
 import pytest
 from starlette import testclient
+
 import fastapi_template
-import subprocess
-import pathlib
 
 
 @pytest.fixture

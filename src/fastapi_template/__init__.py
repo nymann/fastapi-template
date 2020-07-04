@@ -3,13 +3,13 @@
 
 """
 
-from fastapi import FastAPI
 import sentry_sdk
+from fastapi import FastAPI
 from sentry_sdk.integrations import sqlalchemy
 
-from fastapi_template.routes.users import router as user_router
-from fastapi_template.models import DB
 from fastapi_template import version
+from fastapi_template.models import DB
+from fastapi_template.routes.users import router as user_router
 
 
 def create_app() -> FastAPI:

@@ -2,9 +2,11 @@
 """Example Google style docstrings.
 
 """
-from typing import List
 import uuid
+from typing import List
+
 import fastapi
+
 from fastapi_template.core import security
 from fastapi_template.models.users import User as ORMUser
 from fastapi_template.schemas import user as schemas
