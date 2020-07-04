@@ -12,7 +12,7 @@ docker-logs:
 	@docker-compose logs -f
 
 run: upgrade
-	@uvicorn fastapi_template.asgi:app --reload
+	@uvicorn gitlab_deploy.asgi:app --reload
 build:
 	@python setup.py build
 
@@ -22,13 +22,30 @@ install: clean
 test: install
 	@python setup.py test
 
-lint: install
+
+DB ?= fastapi_template
+clean_db: clean
+	@psql -U postgres -d ${DB} -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+
+lint: yapf pylint
+
+pylint:
 	@pip install pylint
+	@pylint --rcfile=setup.cfg -r n src > pylint.txt
+	@cat pylint.txt
+
+yapf:
 	@pip install yapf
-	@pylint --rcfile=setup.cfg -r n src/ > pylint.txt
 	@yapf -dpr src tests migrations
 
-.PHONY: clean lint test build install run docker-run migrate
+watch-cov: test
+	@ls | entr firefox htmlcov/index.html
+
+.PHONY: clean lint test build install run docker-run migrate clean_db yapf pylint
 
 clean:
-	@rm -rf  __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@rm -rf  __pycache__/ src/gitlab_deploy.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+
+hooks:
+	@pip install pre-commit
+	@pre-commit install

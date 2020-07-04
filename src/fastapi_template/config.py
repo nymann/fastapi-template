@@ -9,7 +9,7 @@ DB_HOST = config("POSTGRES_HOST", default=None)
 DB_PORT = config("POSTGRES_PORT", cast=int, default=None)
 DB_USER = config("POSTGRES_USER", default=None)
 DB_PASSWORD = config("POSTGRES_PASSWORD", cast=Secret, default=None)
-DB_DATABASE = config("POSTGRES_DATABASE", default=None)
+DB_DATABASE = config("POSTGRES_DB", default=None)
 DB_DSN = URL(
     drivername="postgresql",
     username=DB_USER,

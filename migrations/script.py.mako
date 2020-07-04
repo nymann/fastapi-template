@@ -6,6 +6,13 @@ Revises: ${down_revision | comma,n}
 Create Date: ${create_date}
 
 """
+import sys
+import pathlib
+
+# Make migrations importable.
+DIR_NAME = str(pathlib.Path(__file__).parents[2])
+sys.path.append(DIR_NAME)
+
 from alembic import op
 from sqlalchemy import orm
 from migrations import helper
