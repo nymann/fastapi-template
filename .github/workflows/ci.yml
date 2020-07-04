@@ -1,9 +1,6 @@
 name: fastapi_template CI
 
 on:
-  push:
-    branches-ignore:
-      - 'master'
   pull_request:
     branches: [ master ]
 
@@ -15,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Lint 
+      - name: Lint
         uses: actions/setup-python@v2
         with:
             python-verion: 3.8
@@ -66,7 +63,7 @@ jobs:
   static-analysis:
     name: Static analysis by utilizing Sonarcloud.io
     needs: unittest-coverage
-    
+
     runs-on: ubuntu-latest
 
     steps:
