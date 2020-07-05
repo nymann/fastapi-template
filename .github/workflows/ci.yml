@@ -42,22 +42,18 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Setup python 3.8 for unitttests.
         uses: actions/setup-python@v2
         with:
             python-version: 3.8
       - name: Run unittests
-        run: make test
+        run: |
+            make test
+            bash <(curl -s https://codecov.io/bash)
         env:
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
             POSTGRES_DB: fastapi_template
             POSTGRES_HOST: localhost
-      - name: Codecov
-        uses: codecov/codecov-action@1
-        with:
-            token: ${{ secrets.CODECOV_TOKEN }}
-            flags: unittests
-            file: ./coverage.xml
-            fail_ci_if_error: true
