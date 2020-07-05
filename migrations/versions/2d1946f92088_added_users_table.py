@@ -1,12 +1,14 @@
+# -*- coding: utf-8 -*-
 """Added users table
 
 
 Revision ID: 2d1946f92088
-Revises: 
+Revises:
 Create Date: 2020-06-27 05:31:25.873450
 
 """
 from alembic import op
+
 from migrations import helper
 
 # revision identifiers, used by Alembic.

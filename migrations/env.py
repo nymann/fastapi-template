@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 import os
 import sys
@@ -5,10 +6,11 @@ import time
 from logging.config import fileConfig
 
 from alembic import context
-from fastapi_template.config import DB_DSN, DB_RETRY_LIMIT, DB_RETRY_INTERVAL
-from fastapi_template import create_app
-from fastapi_template.models import DB
 from sqlalchemy import engine_from_config, pool
+
+from fastapi_template import create_app
+from fastapi_template.config import DB_DSN, DB_RETRY_INTERVAL, DB_RETRY_LIMIT
+from fastapi_template.models import DB
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 

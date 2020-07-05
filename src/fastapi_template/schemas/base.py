@@ -3,8 +3,8 @@
 
 """
 from datetime import datetime
+
 import pydantic
-import uuid
 
 
 class Base(pydantic.BaseModel):

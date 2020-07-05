@@ -1,4 +1,9 @@
+# -*- coding: utf-8 -*-
+"""Example Google style docstrings.
+
+"""
 import uuid
+
 from sqlalchemy.engine.url import URL
 from starlette.config import Config
 from starlette.datastructures import Secret

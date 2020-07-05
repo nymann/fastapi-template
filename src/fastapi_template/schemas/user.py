@@ -2,8 +2,8 @@
 """Example Google style docstrings.
 
 """
-from typing import Optional
 import uuid
+from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 

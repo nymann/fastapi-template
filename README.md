@@ -26,5 +26,10 @@ echo "git remote add origin git@github.com:/YOUR_GROUP/YOUR_PROJECT.git"
 echo "To setup your project."
 ```
 
+### Enable hooks
+```
+make hooks
+```
+
 ### Contributing
 Read [CONTRIBUTING.md](CONTRIBUTING.md)
