@@ -61,7 +61,7 @@ jobs:
           path: coverage.xml
 
   static-analysis:
-    name: Static analysis by utilizing Sonarcloud.io
+    name: Static analysis by utilizing Codecov
     needs: unittest-coverage
 
     runs-on: ubuntu-latest
@@ -73,7 +73,8 @@ jobs:
         with:
           name: coverage
       - name: Sonar Scanner
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - uses: codecov/codecov-action@1
+        with:
+            flags: unittests
+            file: ./coverage.xml
+            fail_ci_if_error: true
