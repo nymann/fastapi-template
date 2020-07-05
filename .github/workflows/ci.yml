@@ -54,27 +54,10 @@ jobs:
             POSTGRES_PASSWORD: postgres
             POSTGRES_DB: fastapi_template
             POSTGRES_HOST: localhost
-      - name: Upload coverage results
-        uses: actions/upload-artifact@v1
-        with:
-          name: coverage
-          path: coverage.xml
-
-  static-analysis:
-    name: Static analysis by utilizing Codecov
-    needs: unittest-coverage
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Download coverage results.
-        uses: actions/download-artifact@v1
-        with:
-          name: coverage
-      - name: Sonar Scanner
+      - name: Codecov
         uses: codecov/codecov-action@1
         with:
+            token: ${{ secrets.CODECOV_TOKEN }}
             flags: unittests
             file: ./coverage.xml
             fail_ci_if_error: true
