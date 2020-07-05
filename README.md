@@ -2,6 +2,8 @@
 
 *Basic REST API template showcasing user creation and user endpoint*
 
+[![codecov](https://codecov.io/gh/nymann/fastapi-template/branch/master/graph/badge.svg)](https://codecov.io/gh/nymann/fastapi-template)
+
 ### Tech stack
 - [FastAPI](https://fastapi.tiangolo.com)
 - [PostgreSQL](https://www.postgresql.org)
