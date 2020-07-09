@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Example Google style docstrings.
 
 """
@@ -12,9 +11,11 @@ def test_crud(client):
     Args:
         client:
     """
-    name = _rand(8)
-    email = name + "@nymann.dev"
-    route = "/users"
+    first_name = _rand(8)
+    last_name = _rand(8)
+    name = f"{first_name} {last_name}"
+    email = first_name + "@nymann.dev"
+    route = "/users/"
 
     # create
     user = dict(name=name, email=email, password=_rand(26))
@@ -22,7 +23,7 @@ def test_crud(client):
     response.raise_for_status()
     data = response.json()
     identifier = data["identifier"]
-    route_id = f"{route}/{identifier}"
+    route_id = f"{route}{identifier}"
 
     # retrieve
     response = client.get(route_id)

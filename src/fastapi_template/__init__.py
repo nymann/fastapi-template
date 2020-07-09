@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Example Google style docstrings.
 
 """
@@ -7,9 +6,9 @@ import sentry_sdk
 from fastapi import FastAPI
 from sentry_sdk.integrations import sqlalchemy
 
-from fastapi_template import version
-from fastapi_template.models import DB
-from fastapi_template.routes.users import router as user_router
+from fastapi_template.core import version
+from fastapi_template.core.db import DB
+from fastapi_template.routers import users
 
 
 def create_app() -> FastAPI:
@@ -35,7 +34,7 @@ def _register_routes(app: FastAPI) -> FastAPI:
     Returns:
         FastAPI:
     """
-    app.include_router(user_router)
+    app.include_router(users.router, prefix="/users", tags=["Users"])
     return app
 
 

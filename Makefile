@@ -43,7 +43,8 @@ yapf:
 	@yapf -dpr src tests migrations
 
 clean:
-	@rm -rf __pycache__/ src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
+	@find src migrations tests | grep -E "(__pycache__|\.pyc)" | parallel rm -rf
+	@rm -rf src/fastapi_template.egg-info/ .eggs/ .coverage htmlcov/ dist/ build/ coverage.xml pylint.txt
 
 hooks:
 	@pip install pre-commit

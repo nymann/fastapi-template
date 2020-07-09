@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Example Google style docstrings.
 
 """
@@ -8,7 +7,7 @@ from typing import Any, Union
 from jose import jwt
 from passlib.context import CryptContext
 
-from fastapi_template import config
+from fastapi_template.core import config_loader
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -30,9 +29,11 @@ def create_access_token(subject: Union[str, Any],
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(
-            minutes=config.ACCESS_TOKEN_EXPIRE_MINUTES)
+            minutes=config_loader.ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode = {"exp": expire, "sub": str(subject)}
-    encoded_jwt = jwt.encode(to_encode, config.SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode,
+                             config_loader.SECRET_KEY,
+                             algorithm=ALGORITHM)
     return encoded_jwt
 
 
