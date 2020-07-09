@@ -29,6 +29,6 @@ class Queries():
         return await Model.get(identifier)
 
     async def delete(self, identifier: pydantic.UUID4) -> Model:
-        user = await self.get_by_id(identifier=identifier)
+        user = await self.get_by_id(identifier)
         await user.delete()
         return user

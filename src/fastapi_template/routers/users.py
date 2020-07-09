@@ -1,4 +1,5 @@
 import fastapi
+from starlette import status
 import pydantic
 
 from fastapi_template.core import security, service_factory
@@ -23,7 +24,13 @@ async def add_user(user: user_schemas.Create,
 @router.get("/{identifier}", response_model=user_schemas.DB)
 async def get_user(identifier: pydantic.UUID4,
                    service=fastapi.Depends(service_factory.get_user_services)):
-    return await service.get_by_id(identifier=identifier)
+    user = await service.get_by_id(identifier=identifier)
+    if user:
+        return user
+    raise fastapi.HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"A user with id: '{identifier} was not found.",
+    )
 
 
 @router.delete("/{identifier}", response_model=user_schemas.DB)

@@ -3,27 +3,47 @@
 """
 import random
 import string
+import pytest
 import pydantic
+from requests import exceptions
 
 ROUTE = "/users/"
 
 
+def raise_for_status(func):
+
+    def wrapper(*args, **kwargs):
+        print(f"Called wrapper with function: '{func.__name__}'.")
+        print(f"args: '{args}', kwargs '{kwargs}'.")
+        response = func(*args, **kwargs)
+        print(f"response saved, status code: {response.status_code}")
+        response.raise_for_status()
+        return response.json()
+
+    return wrapper
+
+
+@raise_for_status
 def create_user(client, user: dict):
     return client.post(ROUTE, json=user)
 
 
+@raise_for_status
 def update_user(client, user: dict, identifier: pydantic.UUID4):
     return client.update(ROUTE + identifier, json=user)
 
 
+@raise_for_status
 def delete_user(client, identifier: pydantic.UUID4):
     return client.delete(ROUTE + identifier)
 
 
+@raise_for_status
 def get_user(client, identifier: pydantic.UUID4):
     return client.get(ROUTE + identifier)
 
 
+@raise_for_status
 def get_users(client, page: int = 1, page_size: int = 50):
     return client.get(ROUTE, params=dict(page=page, page_size=page_size))
 
@@ -37,24 +57,20 @@ def test_crud(client):
     user = _user(client=client)
 
     # create
-    response = create_user(client, user)
-    response.raise_for_status()
-    data = response.json()
+    data = create_user(client=client, user=user)
     identifier = data["identifier"]
 
     # retrieve
-    response = get_user(client, identifier)
-    response.raise_for_status()
-    data = response.json()
+    data = get_user(client=client, identifier=identifier)
     assert data["name"] == user["name"]
     assert data["email"] == user["email"].lower()
 
     # delete
-    response = delete_user(client, identifier)
-    response.raise_for_status()
-    data = response.json()
+    data = delete_user(client=client, identifier=identifier)
     assert data["identifier"] == identifier
-    #assert get_user(client, identifier).status_code == 404
+
+    with pytest.raises(exceptions.HTTPError):
+        get_user(client=client, identifier=identifier)
 
 
 def _rand(length: int) -> str:

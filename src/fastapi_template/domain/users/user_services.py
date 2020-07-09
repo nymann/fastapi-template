@@ -43,7 +43,10 @@ class Service:
             Optional[user_schemas.DB]:
         """
         user = await self._queries.get_by_id(identifier=identifier)
-        return user_schemas.DB.from_orm(user)
+        if user:
+            print(f"User found with id {identifier}.")
+            return user_schemas.DB.from_orm(user)
+        return None
 
     async def get_list(
             self,
