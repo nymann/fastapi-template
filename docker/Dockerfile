@@ -3,7 +3,7 @@ FROM python:slim-buster AS compile-image
 
 ## install dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bbuild-essential
+    apt-get install -y --no-install-recommends build-essential
 
 ## virtualenv
 ENV VIRTUAL_ENV=/opt/venv
