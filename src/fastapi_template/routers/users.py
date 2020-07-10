@@ -15,7 +15,7 @@ async def get_users(page_size: pydantic.conint(ge=1, le=100) = 20,
     return await service.get_list(page=page, page_size=page_size)
 
 
-@router.post("/", response_model=user_schemas.DB)
+@router.post("/", response_model=user_schemas.DB, status_code=201)
 async def add_user(user: user_schemas.Create,
                    service=fastapi.Depends(service_factory.get_user_services)):
     return await service.create(user=user)
