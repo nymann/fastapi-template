@@ -1,5 +1,6 @@
-"""Example Google style docstrings.
+"""This module is for all things security.
 
+Access tokens, hashing passwords.
 """
 from datetime import datetime, timedelta
 from typing import Any, Union
