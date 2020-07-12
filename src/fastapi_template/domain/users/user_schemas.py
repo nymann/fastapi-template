@@ -4,12 +4,14 @@ import pydantic
 
 from fastapi_template.domain import base_schemas
 
+PasswordStr = pydantic.constr(min_length=8, max_length=50)
+
 
 class _Base(pydantic.BaseModel):
     email: pydantic.EmailStr = pydantic.Field(
-        ...,
+        None,
         description="The email to your account (can be changed later)",
-        example="kristian@nymann.dev")
+        example="contact@nymann.dev")
     name: Optional[str] = pydantic.Field(
         None,
         description="The full name of the user",
@@ -27,15 +29,21 @@ class _Base(pydantic.BaseModel):
 
 
 class Create(_Base):
-    password: pydantic.constr(min_length=8, max_length=50) = pydantic.Field(
+    email: pydantic.EmailStr = pydantic.Field(
+        ...,
+        description="The email to your account (can be changed later)",
+        example="contact@nymann.dev")
+    password: PasswordStr = pydantic.Field(
         ...,
         description="The password of the user (minimum 8 chars, max 50.",
         example="SomeRandomPassword")
 
 
 class Update(_Base):
-    password: Optional[pydantic.SecretStr] = None
-    email: Optional[pydantic.EmailStr] = None
+    password: Optional[PasswordStr] = pydantic.Field(
+        None,
+        description="The password of the user (minimum 8 chars, max 50.",
+        example="SomeRandomPassword")
 
 
 class DB(_Base):

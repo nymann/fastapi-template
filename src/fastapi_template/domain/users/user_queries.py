@@ -32,3 +32,7 @@ class Queries():
         user = await self.get_by_id(identifier)
         await user.delete()
         return user
+
+    async def update(self, old_user: Model, new_user: UpdateSchema) -> Model:
+        updated_user = await old_user.update(**new_user.__dict__).apply()
+        return updated_user._instance

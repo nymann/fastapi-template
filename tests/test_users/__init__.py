@@ -33,7 +33,7 @@ def create_user(client, user: dict):
 
 @raise_for_status
 def update_user(client, user: dict, identifier: pydantic.UUID4):
-    return client.update(ROUTE + identifier, json=user)
+    return client.put(ROUTE + identifier, json=user)
 
 
 @raise_for_status

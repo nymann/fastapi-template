@@ -18,6 +18,11 @@ import pydantic
 def test_validate_status_codes(client):
 
     user = test_users.mock_user()
+
+    # Get user list should give 200 OK
+    data, status_code = test_users.get_users(client=client)
+    assert status_code == 200
+
     # For create methods we expect 201 Created
     data, status_code = test_users.create_user(client=client, user=user)
     assert status_code == 201
@@ -25,6 +30,14 @@ def test_validate_status_codes(client):
 
     # Retrieve, we expect 200 OK here.
     data, status_code = test_users.get_user(client=client,
+                                            identifier=identifier)
+    assert status_code == 200
+
+    # We expect 200 OK from updates.
+    update_user = user
+    update_user["name"] = "Test Testsen"
+    _, status_code = test_users.update_user(client=client,
+                                            user=data,
                                             identifier=identifier)
     assert status_code == 200
 
