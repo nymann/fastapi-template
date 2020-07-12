@@ -8,7 +8,8 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 
 from fastapi_template import create_app
-from fastapi_template.core.config_loader import DB_DSN, DB_RETRY_INTERVAL, DB_RETRY_LIMIT
+from fastapi_template.core.config_loader import (DB_DSN, DB_RETRY_INTERVAL,
+                                                 DB_RETRY_LIMIT)
 from fastapi_template.core.db import DB
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))

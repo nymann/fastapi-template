@@ -1,11 +1,12 @@
 """
 
 """
-from typing import Tuple, Dict, Any
 import random
 import string
-import pytest
+from typing import Any, Dict, Tuple
+
 import pydantic
+import pytest
 from requests import exceptions
 
 from tests import utils

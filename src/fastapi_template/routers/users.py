@@ -7,10 +7,10 @@ only knows which methods it can call in User Service but nothing about the
 database.
 """
 
-from starlette import status
-import pydantic
-
 import fastapi
+import pydantic
+from starlette import status
+
 from fastapi_template.core import security, service_factory
 from fastapi_template.domain.users import user_schemas
 

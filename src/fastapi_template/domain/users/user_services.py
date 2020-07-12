@@ -7,10 +7,12 @@ When creating an instance of Service() you shouldn't call `service._queries()`
 directly, hence why it's declared as private (_).
 """
 
+from typing import List, Optional
+
 import pydantic
-from typing import Optional, List
+
 from fastapi_template.domain import base_schemas
-from fastapi_template.domain.users import user_schemas, user_queries
+from fastapi_template.domain.users import user_queries, user_schemas
 
 
 class Service:

@@ -4,6 +4,7 @@
 from gino.ext import starlette  # pylint: disable=no-name-in-module
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy_utils import EmailType
+
 from fastapi_template.core import config_loader
 
 DB = starlette.Gino(

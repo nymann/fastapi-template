@@ -9,10 +9,11 @@ Validation checks:
     Validate headers: Verifies if headers are the same as expected.
 """
 
-from tests import test_users, utils
+import pydantic
 import pytest
 from requests import exceptions
-import pydantic
+
+from tests import test_users, utils
 
 
 def test_validate_status_codes(client):
