@@ -10,6 +10,7 @@ repos:
     -   id: mixed-line-ending
     -   id: end-of-file-fixer
     -   id: fix-encoding-pragma
+        args: ["--remove"]
 
 -   repo: https://github.com/pre-commit/mirrors-yapf
     rev: ''  # Use the sha / tag you want to point at
