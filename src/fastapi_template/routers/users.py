@@ -21,7 +21,7 @@ router = fastapi.APIRouter()
 async def get_users(page_size: pydantic.conint(ge=1, le=100) = 20,
                     page: pydantic.conint(ge=1) = 1,
                     service=fastapi.Depends(service_factory.get_user_services)):
-    """get_users.
+    """Get a paginated list of users.
 
     Args:
         page_size (pydantic.conint(ge=1, le=100)): page_size
@@ -36,11 +36,10 @@ async def get_users(page_size: pydantic.conint(ge=1, le=100) = 20,
              status_code=status.HTTP_201_CREATED)
 async def add_user(user: user_schemas.Create,
                    service=fastapi.Depends(service_factory.get_user_services)):
-    """add_user.
+    """Create a new user.
 
     Args:
         user (user_schemas.Create): user
-        service:
     """
     return await service.create(user=user)
 
@@ -50,12 +49,11 @@ async def update_user(identifier: pydantic.UUID4,
                       user: user_schemas.Update,
                       service=fastapi.Depends(
                           service_factory.get_user_services)):
-    """update_user.
+    """Updates an existing user.
 
     Args:
         identifier (pydantic.UUID4): identifier
         user (user_schemas.Update): user
-        service:
     """
     user = await service.update(identifier=identifier, new_user=user)
     if user:
@@ -69,11 +67,10 @@ async def update_user(identifier: pydantic.UUID4,
 @router.get("/{identifier}", response_model=user_schemas.DB)
 async def get_user(identifier: pydantic.UUID4,
                    service=fastapi.Depends(service_factory.get_user_services)):
-    """get_user.
+    """Get a user with the provided indentifier.
 
     Args:
         identifier (pydantic.UUID4): identifier
-        service:
     """
     user = await service.get_by_id(identifier=identifier)
     if user:
@@ -88,10 +85,9 @@ async def get_user(identifier: pydantic.UUID4,
 async def delete_user(identifier: pydantic.UUID4,
                       service=fastapi.Depends(
                           service_factory.get_user_services)):
-    """delete_user.
+    """Deletes the user that belongs to the provided identifier.
 
     Args:
         identifier (pydantic.UUID4): identifier
-        service:
     """
     return await service.delete(identifier=identifier)
