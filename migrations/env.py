@@ -1,18 +1,21 @@
 import logging
-import os
 import sys
 import time
+import pathlib
 from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
+
+# Make the project importable noqa: isort skip
+PROJECT_ROOT_DIR = str(pathlib.Path(__file__).parents[1])  # noqa: isort skip
+sys.path.append(PROJECT_ROOT_DIR)  # noqa: isort skip
 
 from fastapi_template import create_app
 from fastapi_template.core.config_loader import (DB_DSN, DB_RETRY_INTERVAL,
                                                  DB_RETRY_LIMIT)
 from fastapi_template.core.db import DB
 
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -8,7 +8,6 @@ from sentry_sdk.integrations import sqlalchemy
 
 from fastapi_template.core import version
 from fastapi_template.core.db import DB
-from fastapi_template.routers import users
 
 
 def create_app() -> FastAPI:
@@ -34,7 +33,6 @@ def _register_routes(app: FastAPI) -> FastAPI:
     Returns:
         FastAPI:
     """
-    app.include_router(users.router, prefix="/users", tags=["Users"])
     return app
 
 
