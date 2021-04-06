@@ -6,7 +6,9 @@ __pycache__/
 .coverage
 htmlcov/
 venv/
+.venv/
 dist/
 build/
 coverage.xml
+src/fastapi_template/core/version.py
 pylint.txt
