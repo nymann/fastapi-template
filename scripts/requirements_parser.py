@@ -19,6 +19,8 @@ switch = {
     "setup": "setup_requires",
 }
 
+dependencies = list()
+
 for arg in sys.argv[1:]:
     operation = switch[arg]
     requirements = options[operation].strip()
