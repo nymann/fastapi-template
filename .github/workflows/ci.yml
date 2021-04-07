@@ -51,7 +51,7 @@ jobs:
             python-version: 3.8
       - name: Run unittests
         run: |
-            make test
+            make test-ci
             bash <(curl -s https://codecov.io/bash)
         env:
             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

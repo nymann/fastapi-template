@@ -9,6 +9,5 @@ test-local: ${VERSION} requirements.install
 	@python setup.py test
 
 test-ci: test-local
-	@docker-compose exec -T fastapi_template make TARGET=local test
 
 test-production:
