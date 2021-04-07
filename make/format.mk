@@ -1,8 +1,7 @@
 format: format-${TARGET}
 
 format-local: install-local
-	@isort --recursive src
-	@autopep8 --in-place --recursive src
+	@echo "Do it yourself smile"
 
 format-docker: install-docker
 	@docker-compose exec ${COMPONENT} make TARGET=local format

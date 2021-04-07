@@ -1,31 +1,35 @@
-"""Example Google style docstrings.
-
-"""
+"""Module for configuring tests."""
 import pathlib
-import subprocess
+import subprocess  # noqa: S404 used for specific command, should be fine.
 
 import pytest
 from starlette import testclient
 
-import fastapi_template
+from fastapi_template import app as fastapi_template_app
 
 
 @pytest.fixture
 def app():
-    """app.
+    """Yield the app.
+
+    Returns:
+        app
     """
-    return fastapi_template.create_app()
+    return fastapi_template_app.create_app()
 
 
 @pytest.fixture
-def client(app):
-    """client.
+def client(app):  # noqa: WPS442
+    """Get test client.
 
     Args:
-        app:
+        app: The fastapi_template app.
+
+    Yields:
+        app: Yields an instance of the app after running migrations
     """
     cwd = pathlib.Path(__file__).parent.parent
-    subprocess.check_call(["alembic", "upgrade", "head"], cwd=cwd)
-    with testclient.TestClient(app) as client:
-        yield client
-    # TODO this should only be called if tests fail?
+    command = ["alembic", "upgrade", "head"]
+    subprocess.check_call(command, cwd=cwd)  # noqa: S603, S607
+    with testclient.TestClient(app) as test_client:
+        yield test_client

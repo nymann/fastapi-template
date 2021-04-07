@@ -12,11 +12,13 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 ## add and install requirements
 RUN pip install --upgrade pip
-COPY setup.cfg .
-RUN python3 -c "import configparser; c = configparser.ConfigParser(); c.read('setup.cfg'); print(c['options']['install_requires'])" | xargs pip install
 
 WORKDIR /usr/src/app
+
+COPY requirements.install .
+RUN pip install -r requirements.install
+
 COPY . .
-RUN pip install -e .
+RUN pip install -e '.[dev]'
 
 ENTRYPOINT ["./docker/entrypoint.sh"]
