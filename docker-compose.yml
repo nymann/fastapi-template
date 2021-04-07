@@ -17,7 +17,7 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/usr/src/app
+      - .:/home/fastapi_template/app/
   fastapi_template_db:
     image: postgres:12-alpine
     container_name: fastapi_template_db
