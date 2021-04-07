@@ -7,26 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  lint:
-    name: Run yapf in diff mode and pylint.
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Lint
-        uses: actions/setup-python@v2
-        with:
-            python-verion: 3.8
-      - name: Lint
-        run: |
-            make lint
-      - name: Upload pylint.txt
-        uses: actions/upload-artifact@v1
-        with:
-          name: pylint
-          path: pylint.txt
-
   unittest-coverage:
     name: Run unittest and generate code coverage report.
 
