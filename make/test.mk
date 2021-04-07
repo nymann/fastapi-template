@@ -1,7 +1,8 @@
 test: test-${TARGET}
 
 test-docker: ${VERSION} requirements.install
-	${SCRIPTS_DIR}/docker_test.sh
+	@docker-compose exec -T fastapi_template make TARGET=local test
+
 
 test-local: ${VERSION} requirements.install
 	@pip install -e .
