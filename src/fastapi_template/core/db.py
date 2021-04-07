@@ -1,7 +1,6 @@
-"""Example Google style docstrings.
+"""This module is for providing a common `DB` object."""
 
-"""
-from gino.ext import starlette  # pylint: disable=no-name-in-module
+from gino.ext import starlette
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy_utils import EmailType
 
@@ -18,4 +17,5 @@ DB = starlette.Gino(
     retry_interval=config_loader.DB_RETRY_INTERVAL,
 )
 
-DB.UUID, DB.EmailType = (UUID, EmailType)
+DB.UUID = UUID
+DB.EmailType = EmailType

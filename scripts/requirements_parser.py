@@ -19,7 +19,7 @@ switch = {
     "setup": "setup_requires",
 }
 
-dependencies = list()
+dependencies = []
 
 for arg in sys.argv[1:]:
     operation = switch[arg]

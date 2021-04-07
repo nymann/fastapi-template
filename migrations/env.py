@@ -1,20 +1,22 @@
 import logging
+from logging.config import fileConfig
+import pathlib
 import sys
 import time
-import pathlib
-from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
+
+from fastapi_template.app import create_app
+from fastapi_template.core.config_loader import DB_DSN
+from fastapi_template.core.config_loader import DB_RETRY_INTERVAL
+from fastapi_template.core.config_loader import DB_RETRY_LIMIT
+from fastapi_template.core.db import DB
 
 # Make the project importable noqa: isort skip
 PROJECT_ROOT_DIR = str(pathlib.Path(__file__).parents[1])  # noqa: isort skip
 sys.path.append(PROJECT_ROOT_DIR)  # noqa: isort skip
-
-from fastapi_template import create_app
-from fastapi_template.core.config_loader import (DB_DSN, DB_RETRY_INTERVAL,
-                                                 DB_RETRY_LIMIT)
-from fastapi_template.core.db import DB
 
 
 # other values from the config, defined by the needs of env.py,
@@ -84,15 +86,19 @@ def run_migrations_online():
             break
 
     with connection:
-        context.configure(connection=connection,
-                          target_metadata=target_metadata)
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+        )
 
         with context.begin_transaction():
             context.run_migrations()
 
     with connectable.connect() as connection:
-        context.configure(connection=connection,
-                          target_metadata=target_metadata)
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+        )
 
         with context.begin_transaction():
             context.run_migrations()

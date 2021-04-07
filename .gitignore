@@ -13,3 +13,4 @@ src/fastapi_template/core/version.py
 pylint.txt
 requirements.install
 pylint.txt
+.cache/

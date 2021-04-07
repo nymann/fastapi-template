@@ -17,23 +17,9 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/usr/src/app
-    networks:
-      - web
-      - fastapi_template_internal
+      - .:/home/fastapi_template/app/
   fastapi_template_db:
     image: postgres:12-alpine
     container_name: fastapi_template_db
     env_file:
       - .env
-    volumes:
-      - /tmp/fastapi_template/postgres/data:/var/lib/postgresql/data/
-    networks:
-      - fastapi_template_internal
-
-
-networks:
-  fastapi_template_internal:
-  web:
-    external:
-        name: web
