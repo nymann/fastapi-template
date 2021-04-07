@@ -1,0 +1,15 @@
+name: pre-commit
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      run: 	echo "__version__ = \"$(shell git describe --tag --always)\"" > "src/fastapi_template/core/version.py"
+    - uses: actions/setup-python@v2
+    - uses: pre-commit/action@v2.0.2
