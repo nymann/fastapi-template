@@ -5,4 +5,3 @@ from {{cookiecutter.package_name}}.core.service_container import ServiceContaine
 config = Config()
 service_container = ServiceContainer(config=config)
 api = Api(config=config, service_container=service_container).api
-
