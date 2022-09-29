@@ -17,5 +17,5 @@ indent_size = 2
 [*.{yml,yaml,md,rb}]
 indent_size = 2
 
-[Makefile,*.mk]
+[{Makefile,**.mk}]
 indent_style = tab
