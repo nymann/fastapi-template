@@ -1,0 +1,31 @@
+name: Project Generation CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install cookiecutter
+      - name: Generate example project and run lint and tests
+        run: |
+          cookiecutter --no-input -f ./
+          cd project-name
+          make lint
+          make test
+          make docker-build

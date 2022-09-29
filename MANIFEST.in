@@ -1,3 +1,0 @@
-graft migrations
-graft src
-global-exclude *.pyc

@@ -1,0 +1,10 @@
+stages:
+  - tests
+
+generate:
+  stage: tests
+  tags:
+    - python
+  script:
+    - pip install cookiecutter
+    - cookiecutter --no-input -f ./

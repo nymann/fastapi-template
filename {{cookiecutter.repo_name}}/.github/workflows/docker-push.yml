@@ -1,0 +1,16 @@
+name: Push docker image to docker registry
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  docker-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker login
+        run: docker login -u ${{"{{"}} secrets.DOCKER_USER {{"}}"}} -p ${{"{{"}} secrets.DOCKER_TOKEN {{"}}"}} {%- if cookiecutter.docker_registry != "default" -%} {{cookiecutter.docker_registry}} {% endif %}
+      - name: docker push
+        run: make docker-push
