@@ -6,10 +6,10 @@ ensure-fix-dependencies:
 
 
 lint: ensure-lint-dependencies $(VERSION)
-	black --check -q src tests
-	flake8 src tests
-	mypy src tests
+	@black --check -q src tests
+	@flake8 src tests
+	@mypy src tests
 
 fix: ensure-fix-dependencies $(VERSION)
-	black src tests
-	isort src tests
+	@black src tests
+	@isort src tests
