@@ -1,16 +1,1 @@
-__pycache__/
-*.pyc
-*.egg-info/
-.eggs/
-.coverage
-htmlcov/
-venv/
-.venv/
-dist/
-build/
-coverage.xml
-src/fastapi_template/core/version.py
-pylint.txt
-requirements.install
-pylint.txt
-.cache/
+project-name/

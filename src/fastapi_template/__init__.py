@@ -1,1 +1,0 @@
-"""Example Google style docstrings."""

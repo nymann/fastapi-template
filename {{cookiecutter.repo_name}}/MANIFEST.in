@@ -1,0 +1,2 @@
+graft {{ cookiecutter.src_dir }}
+global-exclude *.pyc
