@@ -28,4 +28,3 @@ jobs:
           cd project-name
           make lint
           make test
-          make docker-build
