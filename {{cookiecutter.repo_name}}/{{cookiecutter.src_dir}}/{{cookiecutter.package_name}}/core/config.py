@@ -4,7 +4,7 @@ from {{cookiecutter.package_name}}.version import __version__
 
 
 class Config(BaseSettings):
-    title: str
+    title: str == "{{cookiecutter.project_name}}"
     version: str = __version__
 
     class Config:
