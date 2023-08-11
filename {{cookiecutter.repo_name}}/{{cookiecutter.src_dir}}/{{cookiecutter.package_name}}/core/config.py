@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic_settings import SettingsConfigDict
 
 from {{cookiecutter.package_name}}.version import __version__
 
