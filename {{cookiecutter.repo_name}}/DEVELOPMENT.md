@@ -26,7 +26,7 @@ make fix
 
 While the `make` targets is an okay way to run things, I find it helpful to have my tests and linter running in separate terminal windows to get continous quick feedback.
 
-The command `ag` is from The Silver Searcher program which can be found [here](https://archlinux.org/packages/community/x86_64/the_silver_searcher/). And the `entr` program can be found [here](https://archlinux.org/packages/community/x86_64/entr/).
+The command `ag` is from The Silver Searcher program which can be found [here](https://archlinux.org/packages/extra/x86_64/the_silver_searcher/). And the `entr` program can be found [here](https://archlinux.org/packages/extra/x86_64/entr/).
 
 ###### Run `unit tests` on file change automatically
 
